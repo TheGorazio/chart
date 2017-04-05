@@ -1,0 +1,55 @@
+<div id="chart" class="chart">
+    <info *ngIf="item" [item]="item"></info>
+    <svg 
+        width="700px"
+        height="250px"
+        class="chart" 
+        (mousemove)="onDiagramMouseMove($event)"
+        (click)="onDiagramClick($event)">
+            <text x="0" y="20" font-family="Verdana" font-size="10">
+                80
+            </text>
+            <polyline fill="none" stroke="#ecedef" stroke-width="1" points="20,20 700,20"/>
+            <text x="0" y="40" font-family="Verdana" font-size="10">
+                60
+            </text>
+            <polyline fill="none" stroke="#ecedef" stroke-width="1" points="20,40 700,40"/>
+            <text x="0" y="60" font-family="Verdana" font-size="10">
+                40
+            </text>
+            <polyline fill="none" stroke="#ecedef" stroke-width="1" points="20,60 700,60"/>
+            <text x="0" y="80" font-family="Verdana" font-size="10">
+                20
+            </text>
+            <polyline fill="none" stroke="#ecedef" stroke-width="<1></1>" points="20,80 700,80"/>
+            <text x="0" y="100" font-family="Verdana" font-size="10">
+                0
+            </text>
+            <polyline fill="none" stroke="#ecedef" stroke-width="1" points="20,100 700,100"/>
+            
+            <polyline          
+                fill="none"
+                stroke="#acbdca"
+                stroke-width="3"
+                [attr.points]="points"/>
+            <polyline
+                *ngIf="additionLineShow"
+                fill="dashed"
+                stroke="grey"
+                stroke-width="1"
+                [attr.points]="additionLinePoints"
+                stroke-dasharray="5"/>
+            <svg:text [attr.x]="month.shift" y="120" font-family="Verdana" font-size="10" *ngFor="let month of months">{{month.name}}</text>
+            <!--<text x="68.3" y="120" font-family="Verdana" font-size="10">{{months[1]}}</text>
+            <text x="110" y="120" font-family="Verdana" font-size="10">{{months[2]}}</text>
+            <text x="160" y="120" font-family="Verdana" font-size="10">{{months[3]}}</text>
+            <text x="210" y="120" font-family="Verdana" font-size="10">{{months[4]}}</text>
+            <text x="260" y="120" font-family="Verdana" font-size="10">{{months[5]}}</text>
+            <text x="310" y="120" font-family="Verdana" font-size="10">{{months[6]}}</text>
+            <text x="360" y="120" font-family="Verdana" font-size="10">{{months[7]}}</text>
+            <text x="410" y="120" font-family="Verdana" font-size="10">{{months[8]}}</text>
+            <text x="460" y="120" font-family="Verdana" font-size="10">{{months[9]}}</text>
+            <text x="510" y="120" font-family="Verdana" font-size="10">{{months[10]}}</text>
+            <text x="560" y="120" font-family="Verdana" font-size="10">{{months[11]}}</text>-->
+    </svg>
+</div>

@@ -1,0 +1,10 @@
+.chart {
+    height: 150px;
+    width: 700px;
+    position: relative;
+}
+
+.chart svg {
+    background-color: #f6f7f9;    
+    padding-left: 10px;    
+}
