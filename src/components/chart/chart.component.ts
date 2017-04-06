@@ -11,7 +11,7 @@ import * as _ from 'underscore';
 export class ChartComponent {
     public chart: Chart;
     public points: string = '';
-    public year: number = new Date().getFullYear();
+    public year: number = 2016;
     public item = null
     public additionLineShow = false;
     public additionLinePoints;
@@ -66,56 +66,50 @@ export class ChartComponent {
             shift: 10 + (700 / 12) * 11
         },
     ];
+    public axisY;
 
     constructor() {
         this.chart = new Chart(this.generateData());
         this.points = this.chart.getPoints();
         this.pointsarray = this.chart.points;
-        console.log(this.pointsarray);
+        this.axisY = this.chart.axisY;
     }
 
     public onDiagramMouseMove(evt) {
-        let element = _.find(this.chart.points, (e) => e.x === evt.screenX - 18);
-        if (element !== undefined) {
+        let point = _.find(this.chart.points, (p) => p.x - 5 < evt.screenX - 18 && evt.screenX - 18 < p.x + 5)
+        if (point !== undefined) {
             this.additionLineShow = true;
-            this.additionLinePoints = `${element.x},100 ${element.x},${element.y}`;
+            this.additionLinePoints = `${point.x},100 ${point.x},${point.y}`;
             this.item = {
-                cost: element.cost,
-                delta: element.delta,
-                x: element.x,
-                y: element.y
+                cost: point.cost,
+                delta: point.delta,
+                date: point.date,
+                x: point.x,
+                y: point.y,
             }
-            console.log(this.item);
         } else {
             this.additionLineShow = false;
             this.item = null;         
         }
     }
 
-    public onDiagramClick(evt) {
-        console.log(evt);
+    public generateData() {
+        let start: number = 1451606400000;
+        let dayStep: number = 86400000;
+        let data: Array<Point> = [];
+        let cost: number = 55.55;
+        for (let i = 0; i < 365; i+=5) {
+            let delta: number, date: Date, sign: number;
+            sign = Math.random() > 0.5 ? 1 : -1
+            delta = Math.random() * 4 * sign;
+            date = new Date(start + dayStep * (1 + i));
+            cost -= delta;
+            data.push(new Point(i, 100 - cost, delta, this.formatDate(date)));
+        }
+        return data; 
     }
 
-    public generateData() {
-        let array: Array<Point> = [];
-        for(let i = 0; i < 365; i++) {
-            let y,c,d;
-            y = Math.random() * 100;
-            c = Math.random() * 100;
-            d = Math.random();
-            array.push(new Point(y,i*(500/365)*2,c,d));
-        }
-
-        //return array;
-        return [
-            new Point(0, 15, 1, 1),
-            new Point(10, 30, 2, 1) ,
-            new Point(20, 33, 3, 1) ,
-            new Point(30, 40, 4, 1) ,
-            new Point(40, 64, 5, 1),
-            new Point(50, 10, 6, 1),
-            new Point(60, 23, 7, 1),
-            new Point(70, 53, 8, 1)
-        ];
+    private formatDate(date) {
+        return `${date.getDate() + 1} ${this.months[date.getMonth()].name} ${date.getFullYear()}`;
     }
 }

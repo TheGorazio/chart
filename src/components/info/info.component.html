@@ -1,0 +1,12 @@
+<div class="info" [style.top.px]="y - 35" [style.left.px]="x + 18">
+    <p class="info__date">
+        {{item.date}}
+    </p>
+    <p>
+        <span class="info__cost">{{item.cost.toFixed(2)}}$</span>
+        <span 
+            [ngClass]="{'info__delta': true, 'info__delta_good': item.delta > 0, 'info__delta_bad': item.delta < 0}">
+            <i>{{item.delta > 0 ? '▲' : '▼'}}</i>{{item.delta.toFixed(2)}}
+        </span>
+    </p>
+</div>

@@ -6,7 +6,6 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ChartComponent } from '../components/chart/chart.component';
 import { Info } from '../components/info/info.component';
-import { itemService } from '../services/itemService';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import { itemService } from '../services/itemService';
     FormsModule,
     HttpModule
   ],
-  providers: [itemService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
